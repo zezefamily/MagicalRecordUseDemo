@@ -4,9 +4,12 @@
 //
 //  Created by zezefamily on 15/7/27.
 //  Copyright (c) 2015年 zezefamily. All rights reserved.
-//
+
+//  更多详细讲解 zezefamily.Inc
+//  http://blog.csdn.net/kuizhang1/article/details/21200367
 
 #import "AppDelegate.h"
+#import "Person.h"
 
 @interface AppDelegate ()
 
@@ -17,6 +20,26 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    
+    [MagicalRecord setupCoreDataStackWithStoreNamed:@"Model.sqlite"];
+    
+    for(int i = 0;i<10;i++){
+        
+//      插入数据
+        Person *person = [Person MR_createEntity];
+        person.fristname = [NSString stringWithFormat:@"Guo%d",i];
+        person.lastname = [NSString stringWithFormat:@"zeze%d",i];
+        person.age = [NSNumber numberWithInt:i];
+        
+        [[NSManagedObjectContext MR_defaultContext]MR_saveWithBlock:^(NSManagedObjectContext *localContext) {
+            
+        }];
+    }
+    
+    
+    
+    
+    
     return YES;
 }
 
